@@ -1,5 +1,6 @@
 const Joi = require('joi');
 const express = require('express');
+const axios = require('axios')
 const app = express()
 
 app.use(express.json());
@@ -9,6 +10,32 @@ const courses = [
     {id: 2, name:"Course 2"},
     {id: 3, name:"Course 3"}
 ];
+
+// Axios GET Request
+app.get('/api/data', (req, res) => {
+    axios.get('https://jsonplaceholder.typicode.com/posts')
+    .then(response => {
+        res.send(response.data);
+    })
+    .catch(error => {
+        console.log(error);
+    });
+  });
+
+// Axios POST request
+app.post('/api/data', (req, res) => {
+    const data = {
+        name: 'John Doe',
+        job: 'Content Writer'
+    };
+    axios.post('https://reqres.in/api/users', data)
+    .then(response => {
+        res.send(response.data);
+    })
+    .catch(error => {
+        console.log(error);
+    });
+});
 
 app.get('/', (req,res) => {
    res.send("Hello World!!!"); 
